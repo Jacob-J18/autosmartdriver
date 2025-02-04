@@ -7,6 +7,10 @@
 </head>
 <body>
   <form id="driverStatusForm">
+    <label for="driverId">Driver ID:</label>
+    <input type="text" id="driverId" name="driverId" required><br><br>
+    <label for="driverName">Driver Name:</label>
+    <input type="text" id="driverName" name="driverName" required><br><br>
     <input type="hidden" id="latitude" name="latitude">
     <input type="hidden" id="longitude" name="longitude">
     <label for="status">Status:</label>
@@ -35,7 +39,7 @@
     function showError(error) {
       switch(error.code) {
         case error.PERMISSION_DENIED:
-         olocation.");
+          alert("User denied the request for Geolocation.");
           break;
         case error.POSITION_UNAVAILABLE:
           alert("Location information is unavailable.");
@@ -51,7 +55,9 @@
 
     function submitForm() {
       const form = document.getElementById("driverStatusForm");
-           // Log form data for debugging
+      const formData = new FormData(form);
+
+      // Log form data for debugging
       for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
@@ -59,9 +65,7 @@
       fetch("https://autosmart.app.n8n.cloud/webhook-test/8043e0ed-6f21-4fd6-bcec-c59014d573b0", {
         method: "POST",
         body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
+             if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
