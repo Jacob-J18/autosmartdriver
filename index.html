@@ -4,6 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Driver Status Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
   <form id="driverStatusForm">
@@ -40,8 +75,7 @@
       switch(error.code) {
         case error.PERMISSION_DENIED:
           alert("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
+          case error.POSITION_UNAVAILABLE:
           alert("Location information is unavailable.");
           break;
         case error.TIMEOUT:
@@ -65,7 +99,9 @@
       fetch("https://autosmart.app.n8n.cloud/webhook-test/8043e0ed-6f21-4fd6-bcec-c59014d573b0", {
         method: "POST",
         body: formData
-             if (!response.ok) {
+      })
+      .then(response => {
+        if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
