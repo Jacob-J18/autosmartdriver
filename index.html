@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Status Form</title>
+</head>
+<body>
+  <form id="driverStatusForm">
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+    <label for="status">Status:</label>
+    <select id="status" name="status">
+      <option value="with_passengers">With Passengers</option>
+      <option value="no_passengers">No Passengers</option>
+    </select>
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+    }
+
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("User denied the request for Geolocation.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+          alert("The request to get user location timed out.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("An unknown error occurred.");
+          break;
+      }
+    }
+
+    function submitForm() {
+      getLocation(); // Get the current location
+      const form = document.getElementById("driverStatusForm");
+      const formData = new FormData(form);
+
+      fetch("YOUR_N8N_WEBHOOK_URL", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Success:", data);
+     ((error) => {
+        console.error("Error:", error);
+      });
+    }
+  </script>
+</body>
+</html>
