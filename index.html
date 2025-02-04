@@ -35,7 +35,7 @@
     function showError(error) {
       switch(error.code) {
         case error.PERMISSION_DENIED:
-          alert("User denied the request for Geolocation.");
+         olocation.");
           break;
         case error.POSITION_UNAVAILABLE:
           alert("Location information is unavailable.");
@@ -51,9 +51,7 @@
 
     function submitForm() {
       const form = document.getElementById("driverStatusForm");
-      const formData = new FormData(form);
-
-      // Log form data for debugging
+           // Log form data for debugging
       for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
@@ -70,9 +68,11 @@
       })
       .then(data => {
         console.log("Success:", data);
+        alert("Form submitted successfully!"); // Show success popup
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("There was an error submitting the form."); // Show error popup
       });
     }
 
