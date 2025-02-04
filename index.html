@@ -29,6 +29,7 @@
     function showPosition(position) {
       document.getElementById("latitude").value = position.coords.latitude;
       document.getElementById("longitude").value = position.coords.longitude;
+      submitForm(); // Submit the form after getting the location
     }
 
     function showError(error) {
@@ -49,7 +50,6 @@
     }
 
     function submitForm() {
-      getLocation(); // Get the current location
       const form = document.getElementById("driverStatusForm");
       const formData = new FormData(form);
 
@@ -60,10 +60,14 @@
       .then(response => response.json())
       .then(data => {
         console.log("Success:", data);
-     ((error) => {
+      })
+      .catch((error) => {
         console.error("Error:", error);
       });
     }
+
+    // Call getLocation when the page loads to get the initial location
+    window.onload = getLocation;
   </script>
 </body>
 </html>
